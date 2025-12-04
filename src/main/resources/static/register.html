@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>用户注册</h2>
+    
+    <input type="text" id="name" placeholder="昵称">
+    <input type="text" id="username" placeholder="账号">
+    <input type="email" id="email" placeholder="邮箱">
+    <input type="password" id="password" placeholder="密码">
+    <input type="password" id="password2" placeholder="确认密码">
+
+    <button onclick="doRegister()">注册</button>
+
+    <p id="errorMsg" class="error"></p>
+    <p class="register-link">
+        已有账号？ <a href="/login.html">去登录</a>
+    </p>
+</div>
+
+<script src="/js/register.js"></script>
+
+</body>
+</html>
