@@ -36,8 +36,10 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.08);
         }
         .product-card img {
-            width: 100%;
-            border-radius: 10px;
+           width: 150px;       /* 控制宽度 */
+           height: 100px;      /* 控制高度 */
+           object-fit: cover;  /* 裁剪并填充图片 */
+           border-radius: 10px;
         }
         .product-title { font-size: 16px; margin: 5px 0 3px; }
         .product-price { color: #ff5722; font-weight: bold; }
@@ -69,18 +71,38 @@
 
 <h2 style="padding:10px;">推荐商品</h2>
 
-<!-- 商品示例 -->
-<div class="product-card">
-    <img src="/images/laptop.jpg" alt="商品图片">
-    <div class="product-title">iPad Pro 2020 二手 九成新</div>
-    <div class="product-price">￥3200</div>
-</div>
+<div id="recommend-container"></div>
 
-<div class="product-card">
-    <img src="/images/shoes.jpg" alt="商品图片">
-    <div class="product-title">Nike 运动鞋 全新 40码</div>
-    <div class="product-price">￥350</div>
-</div>
+<script>
+async function loadRandomProducts() {
+    const res = await fetch("/products/randomtwo");
+    const products = await res.json();
+
+    const container = document.getElementById("recommend-container");
+    container.innerHTML = ""; // 清空旧内容
+
+    products.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        let imgSrc = (p.images && p.images.length > 0) ? p.images[0] : "/images/default.jpg";
+
+        card.innerHTML = `
+            <img src="${imgSrc}" alt="商品图片">
+            <div class="product-title">${p.title}</div>
+            <div class="product-price">￥${p.price}</div>
+        `;
+
+        card.onclick = () => {
+            window.location.href = "/product_detail.html?id=" + p.id;
+        };
+
+        container.appendChild(card);
+    });
+}
+
+loadRandomProducts();
+</script>
 
 <!-- 底部导航栏 -->
 <div class="bottom-nav">

@@ -10,6 +10,7 @@ import com.compusfishqwq.compus_fishqwq.repository.UserRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +41,29 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @GetMapping("/randomtwo")
+    public List<Product> getrandomProducts(){
+        List<Product> allProducts=productService.getAllProducts();
+        List<Product> randomProducts=new ArrayList<>();
+        int size=allProducts.size();
+        if(size<=2){
+            return allProducts;
+        }
+        else{
+            Random rand=new Random();
+            while(randomProducts.size()<2){
+                int index=rand.nextInt(size);
+                Product pro=allProducts.get(index);
+                if(randomProducts.contains(pro)){
+                    continue;
+                }
+                else{
+                    randomProducts.add(pro);
+                }
+            }
+            return randomProducts;
+        }
+    }
     /** 新增或更新商品 */
     @PostMapping
     public Product saveProduct(@RequestBody Product product) {
