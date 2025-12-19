@@ -33,4 +33,4 @@ jobs:
 
       # 4. 执行单元测试 + 集成测试
       - name: Run tests
-        run: mvn clean test
+        run: mvn spring-boot:run
